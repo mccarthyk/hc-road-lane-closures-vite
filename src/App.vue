@@ -1,22 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <div v-if="error" class="py-5">
+    <div class="alert alert-warning" role="alert">
+      {{ error.message }}
+    </div>
+  </div>
+
+  <div v-else class="">
+    <Filters class="bg-light p-2" />
+
+    <div v-if="loading" class="p-5 text-center">
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <ClosuresTable v-else />
+
+    <Pagination v-if="!error" />
+  </div>
 </template>
 
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import { queryClosures, error, loading } from './closures'
 
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
-</script>
+import Filters from './components/Filters.vue'
+import ClosuresTable from './components/ClosuresTable.vue'
+import Pagination from './components/Pagination.vue'
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+export default {
+  setup() {
+    queryClosures()
+    return { error, loading }
+  },
+
+  components: { Filters, ClosuresTable, Pagination },
 }
-</style>
+</script>
