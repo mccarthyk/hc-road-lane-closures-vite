@@ -1,5 +1,5 @@
 <template>
-  <div class="table-responsive">
+  <div v-if="closures.length" class="table-responsive">
     <table class="table table-striped table-sm">
       <thead>
         <tr>
@@ -15,7 +15,9 @@
           <tr>
             <td>
               <strong>
-                {{ closure['STREET'] }}
+                <a href="#map" @click="activeClosure = closure.objectid">
+                  {{ closure['STREET'] }}
+                </a>
               </strong>
 
               <br />
@@ -41,14 +43,19 @@
       </tbody>
     </table>
   </div>
+
+  <div v-else class="text-center py-5">
+    <p class="h4">No Closures</p>
+    <p>Try zooming out of the map or refining your search.</p>
+  </div>
 </template>
 
 <script>
-import { closures } from '../closures'
+import { closures, activeClosure } from '../lib/closures'
 
 export default {
   setup() {
-    return { closures }
+    return { closures, activeClosure }
   },
 
   methods: {

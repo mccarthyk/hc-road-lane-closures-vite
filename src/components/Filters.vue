@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center flex-wrap">
     <div class="flex-grow-1">
       <input
-        v-model="search"
+        v-model="filters.search"
         type="text"
         class="form-control"
         placeholder="Filter by street name"
@@ -12,7 +12,7 @@
     <div class="p-2">
       <div class="form-check form-check-inline radio-inline">
         <input
-          v-model="upcoming"
+          v-model="filters.upcoming"
           class="form-check-input"
           type="radio"
           name="currentOrUpcomingRadioGroup"
@@ -25,7 +25,7 @@
       </div>
       <div class="form-check form-check-inline radio-inline">
         <input
-          v-model="upcoming"
+          v-model="filters.upcoming"
           class="form-check-input"
           type="radio"
           name="currentOrUpcomingRadioGroup"
@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import { search, upcoming } from '../closures'
+import { filters } from '../lib/closures'
 
 export default {
   setup() {
-    return { search, upcoming }
+    return { filters }
   },
 }
 </script>
